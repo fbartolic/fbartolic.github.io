@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research | Fran Bartolić</title>
+<meta name="description" content="Research by Fran Bartolić: AI weather forecasting, gravitational microlensing, and occultation mapping.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <a class="name" href="../">Fran Bartolić</a>
+  <nav>
+    <a href="../">About</a>
+    <a href="./" aria-current="page">Research</a>
+    <a href="../cv/">CV</a>
+  </nav>
+</header>
+
+<main>
+<h1>Research</h1>
+
+<h2>AI models for weather forecasting</h2>
+<p>
+  Weather forecasting is going through a revolution. For most of a century it meant solving
+  the partial differential equations of atmospheric physics on massive supercomputing
+  clusters. AI models trained on decades of past weather have upended that: they produce in
+  minutes on a single GPU what used to take hours on a supercomputer, and now match or
+  surpass the physical models on accuracy. Weather is chaotic, so a single prediction is
+  rarely enough; what matters are the probabilities we assign to each outcome. At
+  <a href="https://www.salientpredictions.com/">Salient Predictions</a> I build forecasting
+  models that push the compute/accuracy frontier, reaching top-tier accuracy at a fraction
+  of the cost and staying simple enough to train quickly, aimed at the quantities people
+  actually act on, like temperature extremes and heavy rainfall.
+</p>
+<p>
+  A recent example is <a href="https://arxiv.org/abs/2601.03753">GEM-2</a>, which my
+  colleagues and I trained to predict the global state of the atmosphere jointly with these
+  decision-relevant variables. At 0.25&deg; resolution and ~19 H100-days of training compute,
+  it outperforms operational numerical weather prediction and is competitive with AI models
+  that cost 20&ndash;100&times; more to train.
+</p>
+<figure>
+  <img src="../images/gem2_beryl_forecast.png" alt="GEM-2 forecast evolution for Hurricane Beryl's Texas landfall compared to IFS ENS and NOAA GEFS">
+  <figcaption>GEM-2 forecast evolution for Hurricane Beryl's Texas landfall (8 July 2024),
+  showing the probability of exceeding the 98th-percentile wind speed. The black contour
+  marks the observed extreme-wind region. GEM-2 localizes the landfall 5&ndash;6 days ahead
+  with smoothly evolving probabilities, while IFS ENS and NOAA GEFS only sharpen two days
+  out. From <a href="https://arxiv.org/abs/2601.03753">Rauba et al. (2026)</a>, Figure 10.</figcaption>
+</figure>
+
+<h2>Reconstructing 2D maps of planetary bodies from 1D light curves</h2>
+<p>
+  Most planets and moons are too far away to resolve as anything more than a point of light.
+  All we can measure is their total brightness, a single number that changes over time as the
+  body rotates and as other bodies pass in front of it. This one-dimensional light curve still
+  encodes the two-dimensional pattern of bright and dark features on the surface, but reading
+  the map back out is ill-posed: many different surfaces produce the same light curve. With <a href="https://luger.dev/">Rodrigo Luger</a>
+  and <a href="https://dfm.io/">Dan Foreman-Mackey</a> at the Flatiron Institute, I built
+  probabilistic models that infer surface maps from these light curves. The same inverse
+  problem applies to bodies throughout the Solar System and to exoplanets around other stars.
+  We tested our methods on a Solar System body, where spatially resolved imaging gives
+  independent ground truth: from two occultation light curves, we recovered the locations of
+  active volcanoes on Jupiter's moon
+  <a href="https://en.wikipedia.org/wiki/Io_(moon)">Io</a>
+  (<a href="https://arxiv.org/abs/2103.03758">Bartolić et al. 2022, PSJ</a>).
+</p>
+<figure>
+  <img src="../images/io_irtf_map.png" alt="Inferred map of thermal emission on Io's surface">
+  <figcaption>Median inferred map of thermal emission on Io's surface, recovered from
+  two occultation light curves.</figcaption>
+</figure>
+
+<h2>Gravitational microlensing</h2>
+<p>
+  When a massive object passes almost exactly in front of a more distant star, its gravity
+  bends and magnifies the star's light, producing a transient brightening that lasts anywhere
+  from hours to months. This is a
+  <a href="https://en.wikipedia.org/wiki/Gravitational_microlensing">gravitational
+  microlensing</a> event. We see nothing of the lens itself; the signal is entirely in the
+  lensed light of an unrelated background star. Microlensing therefore detects objects by their
+  gravity rather than by any light they or a host star emit, which lets it reach things other
+  methods cannot: cold planets on wide orbits, free-floating planets with no host at all, and
+  isolated black holes. Recovering the parameters that describe the lens from the light curve
+  is the hard part. The models are badly degenerate, and a system of two or more lenses has
+  sharp caustics: curves that produce a spike in magnification whenever the source crosses
+  them. Tiny changes in the model parameters shift where those crossings fall, which leaves the
+  likelihood function jagged and multi-modal, with narrow peaks separated by wide
+  low-probability gaps. This is close to
+  the worst case for statistical inference in general, where most methods assume a smooth,
+  well-behaved likelihood function.
+</p>
+<p>
+  During my PhD I worked on both sides of this problem. I wrote
+  <a href="https://github.com/fbartolic/caustics">caustics</a>, an open-source, differentiable
+  code built on JAX that computes the magnification for single, binary, and triple-lens
+  systems, the first microlensing code to support automatic differentiation throughout. On the
+  inference side, instead of reporting a single best-fit solution I treated the competing
+  degenerate modes as a model-comparison problem, weighting them by how well they predict
+  held-out data, and I showed that the standard methods for fitting caustic-crossing events
+  often fail to converge in the first place. Upcoming surveys like Rubin, Roman, and Euclid
+  will record tens of thousands of events, and making sense of them at that scale calls for
+  analysis methods that are both reliable and automated.
+</p>
+<figure>
+  <img src="../images/caustics_gradients.png" alt="Magnification of a caustic-crossing binary-lens event and its gradients with respect to each model parameter, computed by automatic differentiation">
+  <figcaption>Magnification of a background star as the source crosses a binary-lens caustic
+  (top panel; the inset shows the source trajectory through the caustic curve). The lower
+  panels show the derivative of the magnification with respect to each of the model's seven
+  parameters, computed exactly and cheaply by automatic differentiation in
+  <a href="https://github.com/fbartolic/caustics">caustics</a>.</figcaption>
+</figure>
+
+<hr>
+
+<h2 id="publications">Publications</h2>
+<ul class="pubs">
+  <li>
+    P. Rauba, V. Cikojević, <strong>F. Bartolić</strong>, S. Levang, T. Dickinson, C. Dwelle (2026).
+    <a href="https://arxiv.org/abs/2601.03753">Probabilistic Transformers for Joint Modeling of
+    Global Weather Dynamics and Decision-Centric Variables</a>.
+    <span class="venue">arXiv:2601.03753</span>
+  </li>
+  <li>
+    <strong>F. Bartolić</strong>, R. Luger, D. Foreman-Mackey, R. R. Howell, J. A. Rathbun (2022).
+    <a href="https://arxiv.org/abs/2103.03758">Occultation mapping of Io's surface in the
+    near-infrared I: Inferring static maps</a>.
+    <span class="venue">The Planetary Science Journal, doi:10.3847/PSJ/ac2a3e</span>
+  </li>
+  <li>
+    R. Luger, E. Agol, <strong>F. Bartolić</strong>, D. Foreman-Mackey (2022).
+    <a href="https://arxiv.org/abs/2103.06275">Analytic Light Curves in Reflected Light:
+    Phase Curves, Occultations, and Non-Lambertian Scattering for Spherical Planets and
+    Moons</a>.
+    <span class="venue">arXiv:2103.06275</span>
+  </li>
+  <li>
+    N. Golovich, W. Dawson, <strong>F. Bartolić</strong>, et al. (2020).
+    <a href="https://arxiv.org/abs/2009.07927">A Reanalysis of Public Galactic Bulge
+    Gravitational Microlensing Events from OGLE-III and IV</a>.
+    <span class="venue">arXiv:2009.07927</span>
+  </li>
+  <li>
+    V. Bozza, E. Bachelet, <strong>F. Bartolić</strong>, T. M. Heintz, A. R. Hoag,
+    M. Hundertmark (2018).
+    <a href="https://arxiv.org/abs/1805.05653">VBBinaryLensing: a public package for
+    microlensing light curve computation</a>.
+    <span class="venue">MNRAS, 479, 5157</span>
+  </li>
+</ul>
+</main>
+
+<footer class="site">
+  &copy; 2026 Fran Bartolić
+</footer>
+</body>
+</html>
