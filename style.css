@@ -179,9 +179,9 @@ footer.site {
 
 @media (max-width: 480px) {
   img.portrait {
-    float: none;
-    display: block;
-    margin: 0 0 1.5rem;
+    width: 6.5rem;
+    height: 6.5rem;
+    margin: 0.25rem 0 0.75rem 1rem;
   }
 }
 
