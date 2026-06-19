@@ -20,6 +20,9 @@
 
 <main>
 <div class="grid">
+  <a class="shot" href="../images/photos/full/2026-06-18_dscf3164.jpg" data-date="2026-06"><img loading="lazy" width="700" height="466" src="../images/photos/thumb/2026-06-18_dscf3164.jpg" alt=""></a>
+  <a class="shot" href="../images/photos/full/2026-06-17_dscf3149.jpg" data-date="2026-06"><img loading="lazy" width="700" height="466" src="../images/photos/thumb/2026-06-17_dscf3149.jpg" alt=""></a>
+  <a class="shot" href="../images/photos/full/2026-06-17_dscf3094.jpg" data-date="2026-06"><img loading="lazy" width="700" height="466" src="../images/photos/thumb/2026-06-17_dscf3094.jpg" alt=""></a>
   <a class="shot" href="../images/photos/full/2026-06-05_18090090650034939.jpg" data-date="2026-06"><img loading="lazy" width="700" height="466" src="../images/photos/thumb/2026-06-05_18090090650034939.jpg" alt=""></a>
   <a class="shot" href="../images/photos/full/2026-06-05_18086510273377429.jpg" data-date="2026-06"><img loading="lazy" width="700" height="466" src="../images/photos/thumb/2026-06-05_18086510273377429.jpg" alt=""></a>
   <a class="shot" href="../images/photos/full/2026-06-05_18053279630726252.jpg" data-date="2026-06"><img loading="lazy" width="700" height="466" src="../images/photos/thumb/2026-06-05_18053279630726252.jpg" alt=""></a>
@@ -77,6 +80,17 @@
   <a class="shot" href="../images/photos/full/2015-08-25_17842218328061828.jpg" data-date="2015-08"><img loading="lazy" width="700" height="700" src="../images/photos/thumb/2015-08-25_17842218328061828.jpg" alt=""></a>
   <a class="shot" href="../images/photos/full/2015-02-26_17842461685061828.jpg" data-date="2015-02"><img loading="lazy" width="700" height="700" src="../images/photos/thumb/2015-02-26_17842461685061828.jpg" alt=""></a>
 </div>
+<script>
+(function () {
+  var grid = document.querySelector('.grid');
+  var items = Array.prototype.slice.call(grid.children);
+  for (var i = items.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = items[i]; items[i] = items[j]; items[j] = t;
+  }
+  items.forEach(function (el) { grid.appendChild(el); });
+})();
+</script>
 </main>
 
 <div class="lightbox" id="lightbox" aria-hidden="true">
