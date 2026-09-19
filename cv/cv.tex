@@ -1,110 +1,128 @@
-\documentclass[11pt,a4paper,roman, colorlinks,linkcolor=true]{moderncv}        
-\moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'banking', 'oldstyle' and 'fancy'
-\setlength{\hintscolumnwidth}{2.3cm} % if you want to change the width of the column with the dates
-\moderncvcolor{black}                               % color options 'black', 'blue' (default), 'burgundy', 'green', 'grey', 'orange', 'purple' and 'red'
-
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[osf,sc]{mathpazo}
-\linespread{1.05}  
-\usepackage{inconsolata}
-%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
-\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
-\usepackage[scale=0.88]{geometry}
-%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
-\usepackage{courier}
-\usepackage{xpatch}% http://ctan.org/pkg/xpatch
+\usepackage[scaled=0.94]{helvet}
+\usepackage[margin=18mm,top=16mm,bottom=17mm]{geometry}
+\usepackage{microtype}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
 
-% personal data
-\name{Fran}{Bartoli\'{c}}
-\title{\textcolor{gray}{ \normalsize Research scientist building AI models\newline for weather forecasting.}}
-\extrainfo{
-    \normalfont \textbf{website:} \href{https://fbartolic.github.io}{fbartolic.github.io}\\
- \normalfont \textbf{email:} fbartolic \emph{at} salientpredictions.com\\
- \normalfont \textbf{github:} \href{https://github.com/fbartolic}{fbartolic}\\
- \normalfont \textbf{linkedin:} \href{https://www.linkedin.com/in/fbartolic/}{fbartolic}\\
- \normalfont \textbf{location:} Zagreb, Croatia}
+\definecolor{ink}{HTML}{202A34}
+\definecolor{muted}{HTML}{566473}
+\definecolor{accent}{HTML}{1A5276}
+\definecolor{rulecolor}{HTML}{D8E0E6}
+\hypersetup{colorlinks=true,urlcolor=accent,linkcolor=accent,
+  pdftitle={Fran Bartolic | Curriculum Vitae},pdfauthor={Fran Bartolic}}
+\color{ink}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.04}
+\setlist[itemize]{leftmargin=1.25em,label=\textcolor{muted}{\textbullet},
+  itemsep=1pt,topsep=3pt,parsep=0pt,partopsep=0pt}
+\titleformat{\section}{\large\sffamily\bfseries\color{accent}}{}{0pt}{}[\vspace{2pt}\color{rulecolor}\titlerule]
+\titlespacing*{\section}{0pt}{11pt}{6pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\footnotesize\sffamily\color{muted}Fran Bartoli\'{c}\enspace /\enspace Curriculum vitae}
+\fancyfoot[R]{\footnotesize\sffamily\color{muted}\thepage\ /\ \pageref*{LastPage}}
+\setlength{\footskip}{20pt}
+
+% Shared entry formatting keeps content separate from layout.
+\newcommand{\cvitem}[2]{%
+  \par\noindent\begin{minipage}[t]{24mm}
+    % Enter horizontal mode before setting color to preserve baseline alignment.
+    \raggedright\small\sffamily\leavevmode\color{muted}#1
+  \end{minipage}\hfill\begin{minipage}[t]{\dimexpr\linewidth-28mm\relax}
+    \raggedright #2
+  \end{minipage}\par\vspace{4pt}}
+\newcommand{\cventry}[6]{%
+  \cvitem{#1}{\textbf{#2}\enspace|\enspace #3\\[-1pt]
+    {\small\sffamily\color{muted}#4}\if\relax\detokenize{#5}\relax\else\enspace #5\fi
+    \par\vspace{2pt}#6}}
 
 \begin{document}
+{\fontsize{30}{34}\selectfont Fran Bartoli\'{c}}\par
+\vspace{5pt}
+{\large\sffamily Research Scientist\enspace|\enspace Google DeepMind}\par
+\vspace{3pt}
+{\sffamily\color{muted}AI weather forecasting\enspace\textperiodcentered\enspace New York, USA}\par
+\vspace{7pt}
+{\small\sffamily
+franbartolic at google.com\enspace\textperiodcentered\enspace
+\href{https://fbartolic.github.io}{fbartolic.github.io}\enspace\textperiodcentered\enspace
+\href{https://github.com/fbartolic}{GitHub}\enspace\textperiodcentered\enspace
+\href{https://www.linkedin.com/in/fbartolic/}{LinkedIn}}\par
+\vspace{3pt}
 
-% FONT SIZES
-\renewcommand*{\titlefont}{\fontsize{10}{14}\mdseries\upshape}
-\renewcommand*{\namefont}{\fontsize{32}{34}\mdseries\upshape}
-\xpatchcmd{\cvitem}{#3}{\small #3}{}{}
-\patchcmd{\section}{0.95ex}{0.5ex}{}{}
-\makecvtitle
-
-\section{Personal information}
-\cvitem{Nationality}{Croatian}
-\cvitem{Languages}{English (Fluent), Croatian (Native)}
-
-\definecolor{links}{HTML}{0088cc}
-\hypersetup{urlcolor=links}
 \section{Experience}
-\cventry{12/2022--}{Research scientist}{Salient Predictions}
-{}{}{
+\cventry{Jul 2026--\\Present}{Research Scientist}{Google DeepMind}
+{New York, USA}{}{Developing AI weather forecasting models for WeatherNext.}
+\cventry{Dec 2022--\\Jul 2026}{Research Scientist}{Salient Predictions}
+{Remote (Croatia), then New York, USA}{}{
     \begin{itemize}
-        \item Building AI models for probabilistic weather forecasting on subseasonal-to-seasonal timescales.
-        \item Co-developed \href{https://arxiv.org/abs/2601.03753}{GEM-2}, a probabilistic transformer jointly modeling global weather dynamics and decision-centric variables, competitive with operational NWP systems at a fraction of the computational cost.
+        \item Developed probabilistic weather forecasting models across medium-range, subseasonal, and seasonal timescales.
+        \item Developed methods for combining forecasts from multiple models, including neural-network approaches.
+        \item Co-developed \href{https://arxiv.org/abs/2601.03753}{GEM-2} and \href{https://arxiv.org/abs/2608.06241}{GEM-3}, efficient global weather models for probabilistic forecasting.
     \end{itemize}}
-\cventry{06/2021--12/2021}{Research resident}{Cervest}
+\cventry{Jun--Dec 2021}{Research Resident}{Cervest}
 {London, UK}{}{
     \begin{itemize}
-        \item Built probabilistic models for predicting the Urban Heat Island effect using a variety of geospatial datasets.
-        \item Gained skills in remote sensing, climate science and geospatial data analysis.
+        \item Built probabilistic models of the urban heat island effect using geospatial data.
     \end{itemize}}
-\cventry{02/2020--06/2020}{Research analyst}{Center for Computational Astrophysics (CCA), Flatiron Institute (Simons Foundation)}
+\cventry{Feb--Jun 2020}{Research Analyst}{Center for Computational Astrophysics, Flatiron Institute}
 {New York, USA}{}{
     \begin{itemize}
-        \item Developed a probabilistic \href{https://speakerdeck.com/fbartolic/inferring-a-time-dependent-map-of-io-from-occultations-and-phase-curves}{model} for inferring time-variable two dimensional surface maps of exoplanets given one-dimensional time series data, using latent Nonnegative Matrix Factorization (NMF) and variational inference.
-        \item Wrote code in \textsf{Python} using the \textsf{PyMC3}, \textsf{Numpyro} and \textsf{JAX} libraries.
-        \item Worked in a team with two other scientists in the \href{https://www.simonsfoundation.org/flatiron/center-for-computational-astrophysics/astronomical-data/}{Astronomical Data group}.
-\end{itemize}}
-
-\section{Skills}
-\cvitem{Programming}{\textsf{Python}, \textsf{C/C++}, \textsf{CUDA}.}
-\cvitem{Tools}{\textsf{JAX}, \textsf{PyMC3}, \textsf{xarray}, \textsf{dvc}, \textsf{numpyro},\textsf{theano}, \textsf{Stan}, \textsf{scikit-learn}, \textsf{PyTorch}, \textsf{Jupyter}, \textsf{Pandas}, \textsf{matplotlib}, SQL, R,
-\textsf{Git}, continuous integration, \textsf{Vim}, \textsf{Linux}, HTML \& CSS.}
-\cvitem{Statistics \& ML}{Probabilistic modelling, autodiff, general linear models, MCMC, variational inference, Bayesian model comparison, Gaussian processes, Frequentist statistics, neural networks, normalizing flows.}
-\cvitem{Geospatial}{I've built ML pipelines using Landsat, MODIS, VIIRS and OSM datasets.}
-\cvitem{Other}{I have given \href{https://speakerdeck.com/fbartolic}{talks} at international conferences and meetings and worked on projects in a team. I have tutored undergraduates in astronomy and have given talks to members of the public. 
-I am good at describing complex statistical methods to non-experts.}
+        \item Developed a probabilistic \href{https://speakerdeck.com/fbartolic/inferring-a-time-dependent-map-of-io-from-occultations-and-phase-curves}{model} to reconstruct time-varying planetary surface maps from light curves using nonnegative matrix factorization and variational inference.
+    \end{itemize}}
 
 \section{Education}
-\cventry{2017--2023}{Ph.D. Astrophysics}{University of St Andrews}
-{St Andrews, Scotland}{}{    \begin{itemize}
-            \item Wrote open-source Python package \href{https://github.com/fbartolic/caustics}{caustics} for differentiable computation of binary and triple lens microlensing light curves with JAX.
-            \item Conducted research into Bayesian approaches to modeling astrophysical time-series data for the purpose of detecting stars, exoplanets and black holes in a regime where priors and expert knowledge are crucial.
-       \item Given talks at international conferences and workshops.
-           \item Took courses related in machine learning and data science.
-\end{itemize}}
-\cventry{2015--2017}{M.Sc. Physics with Astrophysics}{University of Rijeka}
-{Rijeka, Croatia}{}{\begin{itemize}\item Cumulative GPA: 4.7/5. 
-            \item Took courses in theoretical physics and astrophysics.
-\item Worked on a theoretical research \href{https://github.com/fbartolic/master_thesis}{project} in astrophysics for 7 months at Lund University in Sweden.\end{itemize}}
-\cventry{2012--2015}{B.Sc. Physics}{University of Split}{Split, Croatia}{}
-{\begin{itemize}\item Cumulative GPA: 4.5/5.
-            \item Wrote a thesis on the tidal evolution of close-in giant planets, testing whether tidal engulfment explains why they are rare around evolved stars.
-            \item Took courses in theoretical physics and computer science.
-            \item Exchange semester at Lund University in Sweden.
-\end{itemize}}
+\cventry{2017--2023}{Ph.D. in Astrophysics}{University of St Andrews}
+{St Andrews, Scotland}{}{
+    \begin{itemize}
+        \item Developed Bayesian methods for gravitational microlensing and planetary surface mapping from astronomical time series.
+        \item Created \href{https://github.com/fbartolic/caustics}{caustics}, an open-source JAX package for differentiable computation of binary- and triple-lens microlensing light curves.
+    \end{itemize}}
+\cventry{2015--2017}{M.Sc. in Physics with Astrophysics}{University of Rijeka}
+{Rijeka, Croatia}{}{
+    \begin{itemize}
+        \item Conducted \href{https://github.com/fbartolic/master_thesis}{thesis research} on circumbinary exoplanet dynamics at Lund Observatory, Sweden.
+    \end{itemize}}
+\cventry{2012--2015}{B.Sc. in Physics}{University of Split}
+{Split, Croatia}{}{
+    \begin{itemize}
+        \item Studied whether tidal engulfment explains the scarcity of close-in giant planets around evolved stars.
+        \item Exchange semester at Lund University, Sweden.
+    \end{itemize}}
 
+\newpage
 \section{Publications}
+\cvitem{2026}{S. Levang, \textbf{F. Bartoli\'{c}}, T. Dickinson, C. Dwelle, P. Rauba, V. Cikojevi\'{c}. \emph{Timestep-Conditioned Transformers for Global Weather Forecasting}, \href{https://arxiv.org/abs/2608.06241}{arXiv:2608.06241}.}
 \cvitem{2026}{P. Rauba, V. Cikojevi\'{c}, \textbf{F. Bartoli\'{c}}, S. Levang, T. Dickinson, C. Dwelle. \emph{Probabilistic Transformers for Joint Modeling of Global Weather Dynamics and Decision-Centric Variables}, \href{https://arxiv.org/abs/2601.03753}{arXiv:2601.03753}.}
 \cvitem{2022}{\textbf{F. Bartoli\'{c}}, R. Luger, D. Foreman-Mackey, R. R. Howell, J. A. Rathbun. \emph{Occultation mapping of Io\textquotesingle s surface in the near-infrared I: Inferring static maps}, The Planetary Science Journal. doi:10.3847/PSJ/ac2a3e.}
 \cvitem{2021}{R. Luger, E. Agol, \textbf{F. Bartoli\'{c}}, D. Foreman-Mackey. \emph{Analytic Light Curves in Reflected Light: Phase Curves, Occultations, and Non-Lambertian Scattering for Spherical Planets and Moons}, \href{https://arxiv.org/abs/2103.06275}{arXiv:2103.06275}.}
 \cvitem{2020}{N. Golovich, W. Dawson, \textbf{F. Bartoli\'{c}}, et al. \emph{A Reanalysis of Public OGLE-III and IV Gravitational Microlensing Events}, \href{https://arxiv.org/abs/2009.07927}{arXiv:2009.07927}.}
-\cvitem{2018}{V. Bozza, E. Bachelet, \textbf{F. Bartoli\'{c}}, T. M. Heintz, 
-A. R. Hoag, and M. Hun-dertmark.  \emph{VBBINARYLENSING: a public package for microlensing light-curve  computation.}, 2018, MNRAS, 479, 5157. doi:10.1093/mnras/sty1791}
+\cvitem{2018}{V. Bozza, E. Bachelet, \textbf{F. Bartoli\'{c}}, T. M. Heintz,
+A. R. Hoag, and M. Hundertmark.  \emph{VBBINARYLENSING: a public package for microlensing light-curve  computation.}, 2018, MNRAS, 479, 5157. doi:10.1093/mnras/sty1791}
 
 \section{Patents}
 \cvitem{2026}{S. Levang, \textbf{F. Bartoli\'{c}}. \emph{Multi-model blending of probabilistic weather forecasts}, \href{https://patents.justia.com/patent/20260003100}{US Patent Application 2026/0003100 A1} (filed 06/2025).}
 \cvitem{2026}{S. Levang, \textbf{F. Bartoli\'{c}}. \emph{Multi-model blending via a neural network for probabilistic weather forecasts}, \href{https://patents.justia.com/patent/20260003101}{US Patent Application 2026/0003101 A1} (filed 06/2025).}
 \cvitem{2026}{S. Ridge, V. Cikojevi\'{c}, \textbf{F. Bartoli\'{c}}. \emph{Long-term weather forecasting framework using statistical and machine learning modeling}, \href{https://patents.justia.com/patent/20260104533}{US Patent Application 2026/0104533 A1} (filed 10/2025).}
 
-\section{Awards, Competitions and Honors}
+\section{Awards}
 \cvitem{2019}{\emph{Arthur Maitland Prize} for the best talk, University of St Andrews.}
-\cvitem{2015}{\emph{Dean's Award for undergraduate academic excellence}, 
+\cvitem{2015}{\emph{Dean's Award for undergraduate academic excellence},
 University of Split.}
 
-\section{Hobbies \& Interests}
-\cvitem{}{Cooking, reading, complexity science, AI, history.}
+\section{Additional information}
+\cvitem{Languages}{English (fluent), Croatian (native).}
+\cvitem{Interests}{Cooking, reading, AI, history.}
 \end{document}
